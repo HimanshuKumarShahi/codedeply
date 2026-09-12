@@ -1,0 +1,19 @@
+{
+  "name": "codedeply",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@12.3.4",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "latest",
+    "supabase": "^2.117.0",
+    "turbo": "latest"
+  }
+}

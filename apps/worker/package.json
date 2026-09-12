@@ -1,0 +1,24 @@
+{
+  "name": "worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env --import=tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@codedeply/queue": "workspace:*",
+    "@codedeply/types": "workspace:*",
+    "@supabase/supabase-js": "^2.116.0",
+    "redis": "^6.2.1",
+    "tar": "^7.5.22"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
