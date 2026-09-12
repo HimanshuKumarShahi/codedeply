@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { Loader2, CheckCircle2, AlertCircle, Clock } from "lucide-react";
 
 type Props = {
   deploymentId: string;
@@ -9,34 +10,13 @@ type Props = {
   initialErrorMessage: string | null;
 };
 
-function getStatusClass(status: string) {
-  switch (status) {
-    case "queued":
-      return "border-yellow-200 bg-yellow-50 text-yellow-800";
-
-    case "building":
-      return "border-blue-200 bg-blue-50 text-blue-800";
-
-    case "ready":
-      return "border-green-200 bg-green-50 text-green-800";
-
-    case "failed":
-      return "border-red-200 bg-red-50 text-red-800";
-
-    default:
-      return "border-gray-200 bg-gray-50 text-gray-800";
-  }
-}
-
 export default function DeploymentStatus({
   deploymentId,
   initialStatus,
   initialErrorMessage,
 }: Props) {
   const [status, setStatus] = useState(initialStatus);
-  const [errorMessage, setErrorMessage] = useState(
-    initialErrorMessage,
-  );
+  const [errorMessage, setErrorMessage] = useState(initialErrorMessage);
 
   useEffect(() => {
     const supabase = createClient();
@@ -68,21 +48,64 @@ export default function DeploymentStatus({
     };
   }, [deploymentId]);
 
+  function renderBadge() {
+    switch (status) {
+      case "queued":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-amber-300">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+            </span>
+            <span>Queued</span>
+          </span>
+        );
+
+      case "building":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-cyan-300">
+            <Loader2 className="w-3 h-3 animate-spin text-cyan-400" />
+            <span>Building Container...</span>
+          </span>
+        );
+
+      case "ready":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Live in Production</span>
+          </span>
+        );
+
+      case "failed":
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-red-300">
+            <AlertCircle className="w-3 h-3 text-red-400" />
+            <span>Build Failed</span>
+          </span>
+        );
+
+      default:
+        return (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.04] px-2.5 py-0.5 text-[11px] font-semibold text-[#94a3b8] capitalize">
+            <Clock className="w-3 h-3 text-[#94a3b8]" />
+            <span>{status}</span>
+          </span>
+        );
+    }
+  }
+
   return (
-    <div className="mt-2">
-      <span
-        className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-medium capitalize ${getStatusClass(status)}`}
-      >
-        {status}
-      </span>
+    <div className="inline-block">
+      {renderBadge()}
 
       {status === "failed" && errorMessage && (
-        <div className="mt-4 rounded-md border border-red-200 bg-red-50 p-3">
-          <p className="text-xs font-medium text-red-800">
-            Build failed
+        <div className="mt-2.5 rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-left">
+          <p className="text-[11px] font-bold text-red-300 flex items-center gap-1.5">
+            <AlertCircle className="w-3.5 h-3.5" />
+            Runtime Failure Diagnostic
           </p>
-
-          <p className="mt-1 text-xs text-red-700">
+          <p className="mt-1 font-mono text-[11px] text-red-200/80 break-words">
             {errorMessage}
           </p>
         </div>

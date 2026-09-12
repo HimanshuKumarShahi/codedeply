@@ -1,19 +1,34 @@
-import LoginButton from "../components/auth/login-button";
+﻿import SiteHeader from "@/components/layout/site-header";
+import SiteFooter from "@/components/layout/site-footer";
+import HeroSection from "@/components/landing/hero-section";
+import FeaturesSection from "@/components/landing/features-section";
+import StatsSection from "@/components/landing/stats-section";
+import TestimonialsSection from "@/components/landing/testimonials-section";
+import CtaSection from "@/components/landing/cta-section";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "CodeDeploy — Deploy at the Speed of Thought",
+  description:
+    "The deployment platform built for modern developers. Push your code, we handle the rest. Instant deploys, real-time logs, zero config.",
+  openGraph: {
+    title: "CodeDeploy — Deploy at the Speed of Thought",
+    description:
+      "Push your code. We handle the rest. Instant deploys, real-time logs, zero config.",
+    type: "website",
+  },
+};
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold">CodeDeploy</h1>
-
-        <p className="mt-3 text-muted-foreground">
-          Deploy your projects like Vercel.
-        </p>
-
-        <div className="mt-6">
-          <LoginButton />
-        </div>
-      </div>
+    <main className="flex flex-col min-h-screen bg-[#030712]">
+      <SiteHeader />
+      <HeroSection />
+      <StatsSection />
+      <FeaturesSection />
+      <TestimonialsSection />
+      <CtaSection />
+      <SiteFooter />
     </main>
   );
 }

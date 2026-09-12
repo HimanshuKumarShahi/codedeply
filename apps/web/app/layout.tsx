@@ -13,17 +13,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CodeDeploy",
-  description: "Deploy your project ( Trila)",
+  title: "CodeDeploy — Deploy at the Speed of Thought",
+  description:
+    "The modern deployment platform for developers. Push code, deploy instantly. Built for speed, scale, and simplicity.",
+  keywords: ["deploy", "CI/CD", "GitHub", "cloud", "developer tools"],
+  openGraph: {
+    title: "CodeDeploy",
+    description: "Deploy your projects instantly — like Vercel, but yours.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        {/* Futuristic scan line */}
+        <div className="scan-line" aria-hidden="true" />
+        {children}
+      </body>
     </html>
   );
 }
