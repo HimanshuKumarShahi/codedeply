@@ -1,86 +1,96 @@
-﻿"use client";
+"use client";
+
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, GitBranch, Sparkles, CheckCircle2, Shield } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function CtaSection() {
+  const [repoUrl, setRepoUrl] = useState("");
+  const router = useRouter();
+
+  const handleQuickDeploy = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/dashboard");
+  };
+
   return (
-    <section className="relative py-40 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[#030712]" />
-      
-      {/* Radial glow center */}
+    <section className="relative py-28 sm:py-36 px-4 sm:px-6 overflow-hidden bg-background">
+      {/* Background radial glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[800px] h-[400px] bg-violet-600/15 rounded-full blur-[120px]" />
+        <div className="w-[800px] h-[400px] bg-gradient-to-r from-indigo-500/20 via-violet-500/20 to-cyan-500/15 dark:from-indigo-600/20 dark:via-violet-600/20 dark:to-cyan-500/15 rounded-full blur-[140px]" />
       </div>
 
-      {/* Animated beam lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[0,30,60,90,120,150,180,210,240,270,300,330].map((deg, i) => (
-          <div
-            key={i}
-            className="absolute top-1/2 left-1/2 w-px h-[400px] origin-top"
-            style={{
-              transform: `rotate(${deg}deg) translateX(-50%)`,
-              background: `linear-gradient(to bottom, transparent, rgba(99,102,241,${i % 3 === 0 ? '0.15' : '0.05'}), transparent)`,
-            }}
-          />
-        ))}
-      </div>
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        {/* Container Card */}
+        <div className="relative rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl p-8 sm:p-14 shadow-2xl shadow-indigo-500/5 dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden">
+          {/* Top glowing line */}
+          <div className="absolute top-0 inset-x-12 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-70" />
 
-      {/* Grid pattern */}
-      <div className="absolute inset-0 dot-grid opacity-20 pointer-events-none" />
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-xs text-indigo-600 dark:text-indigo-300 font-semibold mb-6 shadow-sm">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Instant Cloud Setup</span>
+            </div>
 
-      {/* Top border gradient */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-5 leading-tight">
+              Ready to ship with{" "}
+              <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 dark:from-indigo-400 dark:via-violet-300 dark:to-cyan-400 bg-clip-text text-transparent">
+                zero friction?
+              </span>
+            </h2>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-6">
-            <span className="text-[#f1f5f9]">Ready to</span>{" "}
-            <span style={{ background: 'linear-gradient(135deg, #a5b4fc, #818cf8, #22d3ee)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>deploy faster?</span>
-          </h2>
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto mb-8 leading-relaxed">
+              Connect your GitHub repository, configure your BaaS resources, and deploy your production stack in minutes.
+            </p>
 
-          <p className="text-lg sm:text-xl text-[#64748b] mb-10 max-w-xl mx-auto">
-            Join 10,000+ developers shipping with confidence. Start in seconds.
-          </p>
+            {/* Quick Deploy Input Box */}
+            <form onSubmit={handleQuickDeploy} className="max-w-xl mx-auto mb-8">
+              <div className="relative flex flex-col sm:flex-row items-center gap-2 p-1.5 rounded-2xl border border-slate-300 dark:border-white/15 bg-white dark:bg-slate-950/90 shadow-sm focus-within:border-indigo-500 transition-all">
+                <div className="flex items-center gap-2.5 px-3 w-full sm:w-auto flex-1 text-slate-400">
+                  <GitBranch className="w-4 h-4 text-indigo-500 shrink-0" />
+                  <input
+                    type="text"
+                    value={repoUrl}
+                    onChange={(e) => setRepoUrl(e.target.value)}
+                    placeholder="https://github.com/organization/repo"
+                    className="w-full bg-transparent text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none font-mono py-1.5"
+                  />
+                </div>
 
-          {/* Moving border button */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="relative group"
-            >
-              {/* Gradient border animation */}
-              <div
-                className="absolute -inset-0.5 rounded-xl opacity-75 group-hover:opacity-100 transition-opacity"
-                style={{
-                  background: 'linear-gradient(-45deg, #6366f1, #8b5cf6, #06b6d4, #6366f1)',
-                  backgroundSize: '400% 400%',
-                  animation: 'gradient-rotate 4s ease infinite',
-                  filter: 'blur(4px)',
-                }}
-              />
-              <Link
-                href="/auth/sign-in"
-                className="relative flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl text-[#f1f5f9] font-semibold text-base hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] transition-all duration-300"
-              >
-                Get Started Free
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </motion.div>
-          </div>
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-sans text-xs sm:text-sm font-semibold shadow-md shadow-indigo-500/25 transition-all shrink-0"
+                >
+                  <span>Deploy in 1-Click</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </form>
 
-          <p className="mt-6 text-sm text-[#64748b]">
-            No credit card required. Free forever for hobby projects.
-          </p>
-        </motion.div>
+            {/* Perks */}
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-500 dark:text-slate-400">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <span>Free tier included forever</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <span>No credit card required</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5 text-indigo-500" />
+                <span>Instant SSL &amp; custom domains</span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

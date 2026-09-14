@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,27 +14,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CodeDeploy — Deploy at the Speed of Thought",
+  title: "CodeDeploy — Autonomous Cloud BaaS & Instant Deploys",
   description:
-    "The modern deployment platform for developers. Push code, deploy instantly. Built for speed, scale, and simplicity.",
-  keywords: ["deploy", "CI/CD", "GitHub", "cloud", "developer tools"],
+    "The deployment platform and Backend-as-a-Service built for modern developers. Serverless Postgres, Redis queues, instant git deploys, and real-time telemetry.",
+  keywords: ["deploy", "CI/CD", "BaaS", "SaaS", "backend", "cloud", "serverless", "developer tools"],
   openGraph: {
-    title: "CodeDeploy",
-    description: "Deploy your projects instantly — like Vercel, but yours.",
+    title: "CodeDeploy — Deploy at the Speed of Light",
+    description: "Instant git deployments with serverless Postgres, Redis queues, and edge telemetry.",
     type: "website",
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        {/* Futuristic scan line */}
-        <div className="scan-line" aria-hidden="true" />
-        {children}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("codedeply-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)||!t){document.documentElement.classList.add("dark");document.documentElement.style.colorScheme="dark";}else{document.documentElement.classList.remove("dark");document.documentElement.style.colorScheme="light";}}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-200">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

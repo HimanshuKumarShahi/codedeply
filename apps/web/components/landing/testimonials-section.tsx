@@ -1,83 +1,127 @@
-﻿"use client";
-import { motion } from "framer-motion";
+"use client";
 
-const testimonials = [
+import React from "react";
+import { motion } from "framer-motion";
+import { Star, MessageSquare } from "lucide-react";
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  title: string;
+  company: string;
+  initials: string;
+  color: string;
+  stars: number;
+  stackBadge: string;
+}
+
+const testimonials: Testimonial[] = [
   {
-    quote: "CodeDeploy cut our deployment time by 80%. Absolutely incredible platform. We went from 45-minute deploys to under a minute.",
+    quote:
+      "CodeDeploy cut our build and deploy time by 80%. Going from 45-minute Jenkins pipelines to under 20 seconds on CodeDeploy saved our engineering team dozens of hours every sprint.",
     name: "Rohan Sharma",
-    title: "Senior Engineer @ Razorpay",
+    title: "Staff Infrastructure Engineer",
+    company: "Razorpay",
     initials: "RS",
-    color: "#6366f1",
+    color: "#4f46e5",
     stars: 5,
+    stackBadge: "Next.js + Turborepo",
   },
   {
-    quote: "The real-time logs changed everything for our team. We can actually see what's happening during a build and debug instantly.",
+    quote:
+      "The integrated BaaS Postgres and BullMQ worker queues meant we didn't have to spin up three extra cloud services. Everything just connects seamlessly with our Git branches.",
     name: "Priya Nair",
-    title: "CTO @ StartupXYZ",
+    title: "VP of Engineering",
+    company: "StartupXYZ",
     initials: "PN",
-    color: "#8b5cf6",
+    color: "#7c3aed",
     stars: 5,
+    stackBadge: "Postgres + Redis",
   },
   {
-    quote: "Finally a deployment tool that just works. No YAML hell, no complex configuration. Just push and it's live.",
+    quote:
+      "Finally a deployment platform that treats BaaS as a first-class citizen. Instant PR branch preview environments with their own database forks have leveled up our QA process completely.",
     name: "Alex Chen",
-    title: "Full-stack Developer",
+    title: "Full-Stack Architect",
+    company: "HyperScale Labs",
     initials: "AC",
-    color: "#06b6d4",
+    color: "#0284c7",
     stars: 5,
+    stackBadge: "Node.js + Docker",
   },
   {
-    quote: "We migrated from Jenkins in 2 days. Never looked back. CodeDeploy is everything Jenkins should have been.",
+    quote:
+      "The WebSocket live log streaming is ridiculously fast. When an edge build fails, you immediately see the stack trace in real time with zero buffering or lag.",
     name: "Sarah Johnson",
-    title: "DevOps Lead @ TechCorp",
+    title: "DevOps Lead",
+    company: "Fintech Core",
     initials: "SJ",
-    color: "#10b981",
+    color: "#059669",
     stars: 5,
+    stackBadge: "FastAPI + Go",
   },
   {
-    quote: "Ship fast or die. CodeDeploy helps me ship fast. As a solo founder, it's like having a DevOps team without the headcount.",
+    quote:
+      "As a solo founder, CodeDeploy is like having a dedicated DevOps and SRE team on call 24/7. Push to git, and the multi-region edge takes care of the rest.",
     name: "Marcus Williams",
-    title: "Solo Founder",
+    title: "Founder & CEO",
+    company: "VibeCode",
     initials: "MW",
-    color: "#f59e0b",
+    color: "#d97706",
     stars: 5,
+    stackBadge: "Remix + BaaS",
   },
   {
-    quote: "The GitHub integration is seamless. Push, deployed. Done. It literally couldn't be simpler. Absolute game changer.",
+    quote:
+      "Zero YAML headaches. The CLI auto-detects dependencies and provisions the environment automatically. Migrating our services took less than a single afternoon.",
     name: "Aditya Kumar",
-    title: "Backend Engineer",
+    title: "Lead Platform Engineer",
+    company: "CloudNative Inc",
     initials: "AK",
-    color: "#ec4899",
+    color: "#db2777",
     stars: 5,
+    stackBadge: "Python + Redis",
   },
 ];
 
-function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
+function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="flex-shrink-0 w-80 backdrop-blur-xl bg-white/[0.03] border border-white/[0.07] rounded-2xl p-6 mx-3">
-      {/* Stars */}
-      <div className="flex gap-1 mb-4">
-        {Array.from({ length: testimonial.stars }).map((_, i) => (
-          <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-        ))}
+    <div className="flex-shrink-0 w-80 sm:w-96 rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl shadow-sm hover:shadow-lg transition-all mx-3 flex flex-col justify-between">
+      <div>
+        {/* Top bar: Stars + Stack Badge */}
+        <div className="flex items-center justify-between gap-2 mb-4">
+          <div className="flex gap-1 text-amber-400">
+            {Array.from({ length: testimonial.stars }).map((_, i) => (
+              <Star key={i} className="w-3.5 h-3.5 fill-current" />
+            ))}
+          </div>
+
+          <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400">
+            {testimonial.stackBadge}
+          </span>
+        </div>
+
+        {/* Quote */}
+        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6 font-normal">
+          &ldquo;{testimonial.quote}&rdquo;
+        </p>
       </div>
 
-      {/* Quote */}
-      <p className="text-sm text-[#94a3b8] leading-relaxed mb-6">&ldquo;{testimonial.quote}&rdquo;</p>
-
-      {/* Author */}
-      <div className="flex items-center gap-3">
+      {/* Author Info */}
+      <div className="flex items-center gap-3 pt-3 border-t border-slate-100 dark:border-white/[0.06]">
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
+          className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold text-white shadow-sm shrink-0"
           style={{ backgroundColor: testimonial.color }}
         >
           {testimonial.initials}
         </div>
-        <div>
-          <div className="text-sm font-semibold text-[#f1f5f9]">{testimonial.name}</div>
-          <div className="text-xs text-[#64748b]">{testimonial.title}</div>
+        <div className="min-w-0">
+          <div className="text-sm font-bold text-slate-900 dark:text-white truncate">
+            {testimonial.name}
+          </div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
+            {testimonial.title} • <span className="font-semibold text-slate-700 dark:text-slate-300">{testimonial.company}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -86,38 +130,50 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-[#030712]" />
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-violet-600/8 rounded-full blur-[100px] pointer-events-none" />
+    <section className="relative py-28 sm:py-36 overflow-hidden bg-background">
+      {/* Background radial */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-cyan-500/10 dark:bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16 px-4"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 px-4 max-w-3xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/10 text-xs text-violet-300 font-medium mb-6">
-            Testimonials
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-xs text-indigo-600 dark:text-indigo-300 font-semibold mb-5 shadow-sm">
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Developer Reviews</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-[#f1f5f9]">
-            Loved by developers{" "}
-            <span style={{ background: 'linear-gradient(135deg, #a5b4fc, #818cf8, #22d3ee)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>worldwide</span>
+
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
+            Loved by engineers{" "}
+            <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 dark:from-indigo-400 dark:via-violet-300 dark:to-cyan-400 bg-clip-text text-transparent">
+              worldwide
+            </span>
           </h2>
+
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400">
+            From high-growth YC startups to established tech companies, developers rely on CodeDeploy every day to ship production code.
+          </p>
         </motion.div>
 
-        {/* Row 1: scroll left */}
-        <div className="relative overflow-hidden mb-4">
+        {/* Row 1: Marquee Left */}
+        <div className="relative overflow-hidden mb-5">
           <div
             className="flex"
             style={{
-              animation: 'scroll-left 40s linear infinite',
-              width: 'max-content',
+              animation: "scroll-left 45s linear infinite",
+              width: "max-content",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.animationPlayState = 'paused'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.animationPlayState = 'running'; }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.animationPlayState = "paused";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.animationPlayState = "running";
+            }}
           >
             {[...testimonials, ...testimonials].map((t, i) => (
               <TestimonialCard key={i} testimonial={t} />
@@ -125,18 +181,22 @@ export default function TestimonialsSection() {
           </div>
         </div>
 
-        {/* Row 2: scroll right */}
+        {/* Row 2: Marquee Right */}
         <div className="relative overflow-hidden">
           <div
             className="flex"
             style={{
-              animation: 'scroll-right 40s linear infinite',
-              width: 'max-content',
+              animation: "scroll-right 45s linear infinite",
+              width: "max-content",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.animationPlayState = 'paused'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.animationPlayState = 'running'; }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.animationPlayState = "paused";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.animationPlayState = "running";
+            }}
           >
-            {[...testimonials.slice(3), ...testimonials.slice(3)].map((t, i) => (
+            {[...testimonials.slice(3), ...testimonials, ...testimonials.slice(0, 3)].map((t, i) => (
               <TestimonialCard key={i} testimonial={t} />
             ))}
           </div>

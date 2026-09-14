@@ -1,56 +1,94 @@
 "use client";
-import { motion } from "framer-motion";
-import { Zap, Terminal, Globe, Users, Shield } from "lucide-react";
-import { GithubIcon } from "@/components/ui/icons";
 
-const features = [
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  Zap,
+  Terminal,
+  Globe,
+  Database,
+  Cpu,
+  Lock,
+  GitBranch,
+  ShieldCheck,
+  Layers,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
+
+interface FeatureCard {
+  icon: React.ElementType;
+  badge: string;
+  category: "SaaS" | "BaaS" | "Edge";
+  title: string;
+  description: string;
+  gradient: string;
+  span?: string;
+  previewSnippet?: string;
+}
+
+const features: FeatureCard[] = [
   {
-    icon: Zap,
-    title: "Instant Deploys",
-    description: "Git push and your app is live in seconds. Zero configuration, maximum velocity. Our build pipeline is optimized for speed.",
-    gradient: "from-violet-500 to-purple-600",
-    glow: "rgba(139,92,246,0.3)",
-    span: "col-span-2",
+    icon: GitBranch,
+    badge: "CI/CD Pipeline",
+    category: "SaaS",
+    title: "Git-Native Instant Deploys",
+    description:
+      "Push code to GitHub or GitLab. CodeDeploy automatically detects your framework, restores cached dependencies, and spins up isolated microVM containers in seconds.",
+    gradient: "from-indigo-500 to-violet-600",
+    span: "lg:col-span-2",
+    previewSnippet: "git push origin main → https://app.codedeply.app (14.2s)",
   },
   {
-    icon: GithubIcon,
-    title: "GitHub Integration",
-    description: "Connect your repos with one click. Auto-deploy on every push, PR previews, and branch deployments out of the box.",
-    gradient: "from-slate-600 to-slate-700",
-    glow: "rgba(100,116,139,0.3)",
-    span: "",
+    icon: Database,
+    badge: "State & Storage",
+    category: "BaaS",
+    title: "Serverless Postgres & DB Branching",
+    description:
+      "Provision dedicated PostgreSQL databases with built-in PgBouncer connection pooling. Create zero-copy database branches for staging and preview pull requests.",
+    gradient: "from-cyan-500 to-blue-600",
+    span: "lg:col-span-1",
+  },
+  {
+    icon: Cpu,
+    badge: "Worker Cluster",
+    category: "BaaS",
+    title: "Distributed Redis Job Queues",
+    description:
+      "Execute asynchronous compute jobs without managing servers. Powered by Redis and BullMQ with concurrency controls, automatic retry backoffs, and dead-letter queues.",
+    gradient: "from-violet-500 to-purple-600",
+    span: "lg:col-span-1",
   },
   {
     icon: Terminal,
-    title: "Real-time Logs",
-    description: "Watch your build happen live. Stream logs directly to your browser with zero latency. Debug in real time.",
+    badge: "Real-time Telemetry",
+    category: "SaaS",
+    title: "Live WebSocket Log Streaming",
+    description:
+      "Tail container build logs and server runtime console outputs with sub-millisecond latency. Search, filter by severity, and export metrics to Datadog or Prometheus.",
     gradient: "from-emerald-500 to-teal-600",
-    glow: "rgba(16,185,129,0.3)",
-    span: "",
+    span: "lg:col-span-2",
+    previewSnippet: "ws://stream.codedeply.com/logs/deploy-98a12 • live tailing",
   },
   {
     icon: Globe,
-    title: "Custom Domains",
-    description: "Your domain, your brand. Automatic SSL, CDN delivery, and DNS management included.",
-    gradient: "from-cyan-500 to-blue-600",
-    glow: "rgba(6,182,212,0.3)",
-    span: "",
+    badge: "Traffic Routing",
+    category: "Edge",
+    title: "32-Region Anycast Edge Proxy",
+    description:
+      "Route visitors to the nearest compute cluster. Features automatic Let's Encrypt SSL certificates, HTTP/3 protocol negotiation, and custom domain CNAME routing.",
+    gradient: "from-amber-500 to-orange-600",
+    span: "lg:col-span-1",
   },
   {
-    icon: Users,
-    title: "Team Collaboration",
-    description: "Deploy together seamlessly. Role-based access, shared environments, and deployment approvals.",
-    gradient: "from-orange-500 to-red-500",
-    glow: "rgba(249,115,22,0.3)",
-    span: "",
-  },
-  {
-    icon: Shield,
-    title: "99.9% Uptime SLA",
-    description: "Always on, always fast. Enterprise-grade infrastructure with global edge network and automatic failover.",
-    gradient: "from-indigo-500 to-violet-600",
-    glow: "rgba(99,102,241,0.3)",
-    span: "",
+    icon: Lock,
+    badge: "Security & Secrets",
+    category: "BaaS",
+    title: "Zero-Trust Environment Vault",
+    description:
+      "Encrypt application secrets with hardware HSM keys. Synchronize environment variables safely across local dev, staging branches, and production with one click.",
+    gradient: "from-rose-500 to-pink-600",
+    span: "lg:col-span-2",
   },
 ];
 
@@ -60,88 +98,118 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
+  hidden: { opacity: 0, y: 25 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
 };
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="relative py-32 px-4 sm:px-6 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-[#030712]" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <section id="features" className="relative py-28 sm:py-36 px-4 sm:px-6 overflow-hidden bg-background">
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-indigo-500/10 dark:bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section header */}
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16 sm:mb-20"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/10 text-xs text-violet-300 font-medium mb-6">
-            Features
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-xs text-indigo-600 dark:text-indigo-300 font-semibold mb-5 shadow-sm">
+            <Layers className="w-3.5 h-3.5" />
+            <span>SaaS + BaaS Platform Architecture</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight mb-4">
-            <span className="text-[#f1f5f9]">Everything you need to </span>
-            <span style={{ background: 'linear-gradient(135deg, #a5b4fc, #818cf8, #22d3ee)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>ship faster</span>
+
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
+            Everything you need to{" "}
+            <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 dark:from-indigo-400 dark:via-violet-300 dark:to-cyan-400 bg-clip-text text-transparent">
+              build, deploy &amp; scale
+            </span>
           </h2>
-          <p className="text-[#64748b] text-lg max-w-2xl mx-auto">
-            Built for modern development workflows. From prototype to production in minutes.
+
+          <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            Stop stitching together five different vendors. CodeDeploy merges instant Git deployments with full-stack Backend-as-a-Service capabilities in a single unified control plane.
           </p>
         </motion.div>
 
-        {/* Bento grid */}
+        {/* Bento Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
-          {features.map((feature, i) => {
+          {features.map((feature) => {
             const Icon = feature.icon;
             return (
               <motion.div
                 key={feature.title}
                 variants={cardVariants}
-                className={`group relative rounded-2xl p-6 backdrop-blur-xl bg-white/[0.03] border border-white/[0.07] hover:border-violet-500/30 hover:bg-white/[0.05] transition-all duration-300 cursor-default ${
-                  feature.span
-                }`}
-                style={{
-                  gridColumn: feature.span === 'col-span-2' ? 'span 2 / span 2' : undefined,
-                }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className={`group relative rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 hover:border-indigo-400/50 dark:hover:border-indigo-500/40 transition-all duration-300 flex flex-col justify-between ${
+                  feature.span || ""
+                }`}
               >
-                {/* Card glow on hover */}
-                <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{ boxShadow: `inset 0 0 30px ${feature.glow}` }}
-                />
+                <div>
+                  {/* Card Header: Icon + Category Badge */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div
+                      className={`w-11 h-11 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-md text-white`}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </div>
 
-                {/* Icon */}
-                <div
-                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 shadow-lg`}
-                  style={{ boxShadow: `0 0 20px ${feature.glow}` }}
-                >
-                  <Icon className="w-6 h-6 text-white" />
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300">
+                        {feature.category}
+                      </span>
+                      <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
+                        {feature.badge}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Title & Description */}
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-300 transition-colors">
+                    {feature.title}
+                  </h3>
+
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {feature.description}
+                  </p>
+
+                  {/* Optional Terminal Preview Snippet */}
+                  {feature.previewSnippet && (
+                    <div className="mt-4 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 font-mono text-[11px] text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                      <span className="text-indigo-500">▶</span>
+                      <span className="truncate">{feature.previewSnippet}</span>
+                    </div>
+                  )}
                 </div>
 
-                <h3 className="text-lg font-bold text-[#f1f5f9] mb-2">{feature.title}</h3>
-                <p className="text-sm text-[#64748b] leading-relaxed">{feature.description}</p>
-
-                {/* Hover arrow */}
-                <div className="mt-4 flex items-center gap-1 text-xs text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span>Learn more</span>
-                  <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                {/* Card footer / learn more */}
+                <div className="mt-5 pt-3 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-xs font-semibold text-indigo-600 dark:text-indigo-400">
+                  <span>Explore documentation</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </motion.div>
             );
           })}
         </motion.div>
+
+        {/* Bottom Feature CTA */}
+        <div className="mt-14 text-center">
+          <Link
+            href="/features"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 text-xs sm:text-sm font-semibold text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 shadow-sm transition-all"
+          >
+            <span>View all 24+ platform features</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );

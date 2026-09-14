@@ -4,132 +4,141 @@ import Link from "next/link";
 import { useState } from "react";
 import { Zap, Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import LoginButton from "@/components/auth/login-button";
+import ThemeToggle from "@/components/theme/theme-toggle";
 
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 sm:px-6 pointer-events-none">
-      <div className="w-full max-w-6xl rounded-2xl border border-white/[0.08] bg-[#030712]/70 backdrop-blur-2xl px-5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between pointer-events-auto transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-3.5 px-4 sm:px-6 pointer-events-none">
+      <div className="w-full max-w-6xl rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl px-4 sm:px-6 py-2.5 shadow-lg shadow-indigo-500/5 dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between pointer-events-auto transition-colors duration-200">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-cyan-400 p-[1px] shadow-[0_0_20px_rgba(99,102,241,0.5)]">
-            <div className="w-full h-full bg-[#030712] rounded-[11px] flex items-center justify-center">
-              <Zap className="w-4 h-4 text-violet-400 fill-violet-400 group-hover:scale-110 group-hover:text-cyan-400 group-hover:fill-cyan-400 transition-all duration-300" />
+          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-cyan-400 p-[1px] shadow-sm">
+            <div className="w-full h-full bg-white dark:bg-slate-950 rounded-[11px] flex items-center justify-center">
+              <Zap className="w-4 h-4 text-indigo-600 dark:text-cyan-400 fill-indigo-600/30 dark:fill-cyan-400/30 group-hover:scale-110 transition-transform" />
             </div>
           </div>
-          <span className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1">
-            Code<span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">Deploy</span>
+          <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-1">
+            Code<span className="bg-gradient-to-r from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-400 bg-clip-text text-transparent">Deploy</span>
           </span>
-          <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 hidden sm:inline-block">
-            BaaS
+          <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 hidden sm:inline-block">
+            SaaS &amp; BaaS
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 bg-white/[0.02] border border-white/[0.05] rounded-full px-3 py-1">
+        <nav className="hidden md:flex items-center gap-1 bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/[0.06] rounded-full px-3 py-1">
           <Link
             href="/features"
-            className="px-3.5 py-1.5 text-xs font-medium text-[#94a3b8] hover:text-white rounded-full hover:bg-white/[0.05] transition-colors"
+            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
           >
             Features
           </Link>
           <Link
             href="/pricing"
-            className="px-3.5 py-1.5 text-xs font-medium text-[#94a3b8] hover:text-white rounded-full hover:bg-white/[0.05] transition-colors"
+            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
           >
             Pricing
           </Link>
           <Link
             href="/about"
-            className="px-3.5 py-1.5 text-xs font-medium text-[#94a3b8] hover:text-white rounded-full hover:bg-white/[0.05] transition-colors"
+            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
           >
             About
           </Link>
           <Link
             href="/dashboard"
-            className="px-3.5 py-1.5 text-xs font-medium text-[#94a3b8] hover:text-white rounded-full hover:bg-white/[0.05] transition-colors"
+            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
           >
             Dashboard
           </Link>
         </nav>
 
-        {/* Right Actions */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Right Actions: Theme Toggle + Auth / CTA */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          {/* Interactive Dark / White Mode Toggle */}
+          <ThemeToggle />
+
           <Link
             href="/dashboard"
-            className="text-xs font-semibold text-[#cbd5e1] hover:text-white transition-colors px-3 py-1.5"
+            className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-1.5"
           >
             Sign In
           </Link>
+
           <Link
             href="/dashboard"
-            className="relative group overflow-hidden rounded-xl p-[1px] focus:outline-none"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-sm shadow-indigo-500/25 transition-all"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-violet-600 to-cyan-500 rounded-xl transition-all duration-300 group-hover:opacity-90 opacity-80" />
-            <span className="relative flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-[#030712] rounded-[11px] transition-all duration-300 group-hover:bg-transparent">
-              <span>Start Deploying</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-            </span>
+            <span>Deploy Free</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-[#94a3b8] hover:text-white hover:bg-white/[0.06] transition-colors"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        {/* Mobile menu and toggle */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            initial={{ opacity: 0, y: -15, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-20 left-4 right-4 z-50 rounded-2xl border border-white/[0.1] bg-[#030712]/95 backdrop-blur-2xl p-6 shadow-2xl flex flex-col gap-4 pointer-events-auto md:hidden"
+            exit={{ opacity: 0, y: -15, scale: 0.96 }}
+            transition={{ duration: 0.18 }}
+            className="fixed top-20 left-4 right-4 z-50 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-3 pointer-events-auto md:hidden"
           >
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.08]">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Theme</span>
+              <ThemeToggle showLabel />
+            </div>
+
             <Link
               href="/features"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-medium text-[#cbd5e1] hover:text-white py-2 border-b border-white/[0.05]"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2 border-b border-slate-100 dark:border-white/[0.06]"
             >
-              Features
+              Features &amp; Architecture
             </Link>
             <Link
               href="/pricing"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-medium text-[#cbd5e1] hover:text-white py-2 border-b border-white/[0.05]"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2 border-b border-slate-100 dark:border-white/[0.06]"
             >
-              Pricing
+              Pricing &amp; Plans
             </Link>
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-medium text-[#cbd5e1] hover:text-white py-2 border-b border-white/[0.05]"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2 border-b border-slate-100 dark:border-white/[0.06]"
             >
-              About
+              About CodeDeploy
             </Link>
             <Link
               href="/dashboard"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-medium text-[#cbd5e1] hover:text-white py-2"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2"
             >
-              Dashboard
+              Console Dashboard
             </Link>
             <div className="pt-2">
               <Link
                 href="/dashboard"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-semibold text-sm"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold text-sm shadow-md"
               >
-                <span>Start Free</span>
+                <span>Start Deploying Free</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
