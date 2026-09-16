@@ -2,86 +2,147 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Zap, Menu, X, ArrowRight } from "lucide-react";
+import { Zap, Menu, X, ArrowRight, Globe, ChevronDown, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/theme/theme-toggle";
 
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
+  const [currencyOpen, setCurrencyOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-3.5 px-4 sm:px-6 pointer-events-none">
-      <div className="w-full max-w-6xl rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-2xl px-4 sm:px-6 py-2.5 shadow-lg shadow-indigo-500/5 dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between pointer-events-auto transition-colors duration-200">
-        {/* Brand Logo */}
+    <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-[#120E2C]/95 backdrop-blur-md border-b border-slate-200/80 dark:border-white/10 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        {/* Brand Logo - Hostinger Clean Style */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-cyan-400 p-[1px] shadow-sm">
-            <div className="w-full h-full bg-white dark:bg-slate-950 rounded-[11px] flex items-center justify-center">
-              <Zap className="w-4 h-4 text-indigo-600 dark:text-cyan-400 fill-indigo-600/30 dark:fill-cyan-400/30 group-hover:scale-110 transition-transform" />
-            </div>
+          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-[#673DE6] text-white shadow-md shadow-indigo-600/20 group-hover:scale-105 transition-transform">
+            <Zap className="w-5 h-5 fill-white" />
           </div>
-          <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-1">
-            Code<span className="bg-gradient-to-r from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-400 bg-clip-text text-transparent">Deploy</span>
-          </span>
-          <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 hidden sm:inline-block">
-            SaaS &amp; BaaS
-          </span>
+          <div className="flex flex-col">
+            <span className="font-extrabold text-lg tracking-tight text-slate-900 dark:text-white flex items-center leading-none">
+              Code<span className="text-[#673DE6]">Deploy</span>
+            </span>
+            <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 tracking-wider uppercase mt-0.5">
+              Cloud &amp; BaaS Platform
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/70 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/[0.06] rounded-full px-3 py-1">
+        <nav className="hidden lg:flex items-center gap-1">
           <Link
             href="/features"
-            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
+            className="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-[#673DE6] dark:hover:text-[#a58bf8] transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-white/5"
           >
             Features
           </Link>
           <Link
-            href="/pricing"
-            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
+            href="#panel-showcase"
+            className="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-[#673DE6] dark:hover:text-[#a58bf8] transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-white/5"
           >
-            Pricing
+            Cloud Panel
+          </Link>
+          <Link
+            href="#speed"
+            className="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-[#673DE6] dark:hover:text-[#a58bf8] transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-white/5"
+          >
+            Speed &amp; Edge
+          </Link>
+          <Link
+            href="#pricing"
+            className="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-[#673DE6] dark:hover:text-[#a58bf8] transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 flex items-center gap-1.5"
+          >
+            <span>Pricing</span>
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-[#EB0052] text-white leading-none">
+              Save 75%
+            </span>
           </Link>
           <Link
             href="/about"
-            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
+            className="px-3.5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-[#673DE6] dark:hover:text-[#a58bf8] transition-colors rounded-lg hover:bg-slate-100 dark:hover:bg-white/5"
           >
             About
           </Link>
-          <Link
-            href="/dashboard"
-            className="px-3.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white rounded-full transition-colors"
-          >
-            Dashboard
-          </Link>
         </nav>
 
-        {/* Right Actions: Theme Toggle + Auth / CTA */}
-        <div className="hidden sm:flex items-center gap-2.5">
-          {/* Interactive Dark / White Mode Toggle */}
+        {/* Right Actions: Currency + Theme + Auth + Hostinger CTA */}
+        <div className="hidden sm:flex items-center gap-3">
+          {/* Currency / Region Selector (Hostinger India feature) */}
+          <div className="relative">
+            <button
+              onClick={() => setCurrencyOpen(!currencyOpen)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
+              title="Select Region & Currency"
+            >
+              <span className="text-sm">{currency === "INR" ? "🇮🇳" : "🌐"}</span>
+              <span>{currency === "INR" ? "INR (₹)" : "USD ($)"}</span>
+              <ChevronDown className="w-3 h-3 text-slate-400" />
+            </button>
+
+            {currencyOpen && (
+              <div className="absolute right-0 mt-1.5 w-36 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#1A1336] shadow-xl p-1.5 z-50 text-xs font-medium">
+                <button
+                  onClick={() => {
+                    setCurrency("INR");
+                    setCurrencyOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg transition-colors ${
+                    currency === "INR"
+                      ? "bg-[#673DE6]/10 text-[#673DE6] font-bold"
+                      : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>🇮🇳</span> INR (₹)
+                  </span>
+                  {currency === "INR" && <Check className="w-3.5 h-3.5 text-[#673DE6]" />}
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrency("USD");
+                    setCurrencyOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg transition-colors ${
+                    currency === "USD"
+                      ? "bg-[#673DE6]/10 text-[#673DE6] font-bold"
+                      : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span>🌐</span> USD ($)
+                  </span>
+                  {currency === "USD" && <Check className="w-3.5 h-3.5 text-[#673DE6]" />}
+                </button>
+              </div>
+            )}
+          </div>
+
           <ThemeToggle />
 
           <Link
             href="/dashboard"
-            className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors px-3 py-1.5"
+            className="text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#673DE6] dark:hover:text-white px-3 py-2 transition-colors"
           >
-            Sign In
+            Log in
           </Link>
 
+          {/* Hostinger Signature CTA Button */}
           <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-sm shadow-indigo-500/25 transition-all"
+            href="#pricing"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#673DE6] hover:bg-[#5025D1] shadow-md shadow-indigo-600/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            <span>Deploy Free</span>
+            <span>Claim Deal</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* Mobile menu and toggle */}
-        <div className="flex items-center gap-2 md:hidden">
+        {/* Mobile Hamburger & Theme Toggle */}
+        <div className="flex items-center gap-2 lg:hidden">
           <ThemeToggle />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+            className="p-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -89,56 +150,91 @@ export default function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -15, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -15, scale: 0.96 }}
-            transition={{ duration: 0.18 }}
-            className="fixed top-20 left-4 right-4 z-50 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl p-5 shadow-2xl flex flex-col gap-3 pointer-events-auto md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#150F33] px-6 py-5 shadow-2xl flex flex-col gap-3 lg:hidden"
           >
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/[0.08]">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Theme</span>
-              <ThemeToggle showLabel />
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Currency</span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setCurrency("INR")}
+                  className={`px-2.5 py-1 rounded text-xs font-bold ${
+                    currency === "INR" ? "bg-[#673DE6] text-white" : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
+                  }`}
+                >
+                  🇮🇳 INR (₹)
+                </button>
+                <button
+                  onClick={() => setCurrency("USD")}
+                  className={`px-2.5 py-1 rounded text-xs font-bold ${
+                    currency === "USD" ? "bg-[#673DE6] text-white" : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300"
+                  }`}
+                >
+                  🌐 USD ($)
+                </button>
+              </div>
             </div>
 
             <Link
               href="/features"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2 border-b border-slate-100 dark:border-white/[0.06]"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#673DE6] py-1.5"
             >
               Features &amp; Architecture
             </Link>
             <Link
-              href="/pricing"
+              href="#panel-showcase"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2 border-b border-slate-100 dark:border-white/[0.06]"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#673DE6] py-1.5"
             >
-              Pricing &amp; Plans
+              Cloud Panel Preview
+            </Link>
+            <Link
+              href="#speed"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#673DE6] py-1.5"
+            >
+              Speed &amp; Edge Performance
+            </Link>
+            <Link
+              href="#pricing"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#673DE6] py-1.5 flex items-center justify-between"
+            >
+              <span>Pricing &amp; Plans</span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EB0052] text-white">
+                Save 75%
+              </span>
             </Link>
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2 border-b border-slate-100 dark:border-white/[0.06]"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#673DE6] py-1.5"
             >
               About CodeDeploy
             </Link>
             <Link
               href="/dashboard"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-white py-2"
+              className="text-sm font-semibold text-slate-800 dark:text-slate-200 hover:text-[#673DE6] py-1.5"
             >
-              Console Dashboard
+              Sign In to Console
             </Link>
+
             <div className="pt-2">
               <Link
-                href="/dashboard"
+                href="#pricing"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold text-sm shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#673DE6] hover:bg-[#5025D1] text-white font-bold text-sm shadow-md"
               >
-                <span>Start Deploying Free</span>
+                <span>Claim Flash Deal (Save 75%)</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import SiteHeader from "@/components/layout/site-header";
 import SiteFooter from "@/components/layout/site-footer";
+import PromoBanner from "@/components/layout/promo-banner";
 
 export const metadata: Metadata = {
   title: "About — CodeDeploy SaaS & BaaS Platform",
@@ -69,6 +70,7 @@ const team = [
 export default function AboutPage() {
   return (
     <main className="flex flex-col min-h-screen bg-background text-foreground transition-colors duration-200">
+      <PromoBanner />
       <SiteHeader />
 
       <div className="flex-1">

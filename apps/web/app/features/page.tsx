@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import SiteHeader from "@/components/layout/site-header";
 import SiteFooter from "@/components/layout/site-footer";
+import PromoBanner from "@/components/layout/promo-banner";
 
 const baasFeatures = [
   {
@@ -72,6 +73,7 @@ const baasFeatures = [
 export default function FeaturesPage() {
   return (
     <main className="flex flex-col min-h-screen bg-background text-foreground transition-colors duration-200">
+      <PromoBanner />
       <SiteHeader />
 
       <div className="flex-1">
@@ -172,7 +174,7 @@ export default function FeaturesPage() {
 
               <Link
                 href="/dashboard"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-violet-600 to-cyan-500 text-white font-bold text-sm shadow-md hover:shadow-indigo-500/25 transition-all"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#673DE6] hover:bg-[#5025D1] text-white font-bold text-sm shadow-md shadow-[#673DE6]/25 transition-all"
               >
                 <span>Launch Free Dashboard</span>
                 <ArrowRight className="w-4 h-4" />

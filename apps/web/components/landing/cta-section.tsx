@@ -66,7 +66,7 @@ export default function CtaSection() {
 
                 <button
                   type="submit"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-sans text-xs sm:text-sm font-semibold shadow-md shadow-indigo-500/25 transition-all shrink-0"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#673DE6] hover:bg-[#5025D1] text-white font-sans text-xs sm:text-sm font-bold shadow-md shadow-[#673DE6]/25 transition-all shrink-0"
                 >
                   <span>Deploy in 1-Click</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -77,16 +77,16 @@ export default function CtaSection() {
             {/* Perks */}
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-500 dark:text-slate-400">
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                <span>Free tier included forever</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#00B090]" />
+                <span>30-Day Money-Back Guarantee</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                <span>No credit card required</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#00B090]" />
+                <span>No credit card required to start</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-indigo-500" />
-                <span>Instant SSL &amp; custom domains</span>
+                <Shield className="w-3.5 h-3.5 text-[#673DE6]" />
+                <span>Free SSL &amp; custom domains</span>
               </div>
             </div>
           </motion.div>

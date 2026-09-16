@@ -53,6 +53,15 @@
   --color-accent-cyan: var(--accent-cyan);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
+
+  /* Hostinger signature design tokens */
+  --color-hostinger-purple: #673DE6;
+  --color-hostinger-purple-dark: #5025D1;
+  --color-hostinger-purple-light: #F4F0FF;
+  --color-hostinger-midnight: #1F1449;
+  --color-hostinger-midnight-dark: #120E2C;
+  --color-hostinger-sale: #EB0052;
+  --color-hostinger-trust: #00B090;
 }
 
 /* ==================== LIGHT MODE DEFAULT ==================== */
@@ -362,3 +371,58 @@
 }
 .float { animation: float 4s ease-in-out infinite; }
 .float-delayed { animation: float 4s ease-in-out 1.5s infinite; }
+
+/* ==================== HOSTINGER SIGNATURE DESIGN UTILITIES ==================== */
+.bg-hostinger-purple {
+  background-color: #673DE6;
+}
+.hover\:bg-hostinger-purple-dark:hover {
+  background-color: #5025D1;
+}
+.text-hostinger-purple {
+  color: #673DE6;
+}
+.border-hostinger-purple {
+  border-color: #673DE6;
+}
+.bg-hostinger-midnight {
+  background-color: #1F1449;
+}
+.bg-hostinger-midnight-dark {
+  background-color: #120E2C;
+}
+.bg-hostinger-sale {
+  background-color: #EB0052;
+}
+.text-hostinger-sale {
+  color: #EB0052;
+}
+.text-hostinger-trust {
+  color: #00B090;
+}
+.bg-hostinger-trust-light {
+  background-color: rgba(0, 176, 144, 0.1);
+}
+.hostinger-card {
+  background-color: #ffffff;
+  border: 1px solid #E6E7ED;
+  box-shadow: 0 4px 24px -2px rgba(103, 61, 230, 0.06);
+}
+.dark .hostinger-card {
+  background-color: rgba(26, 18, 56, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
+}
+.hostinger-btn-primary {
+  background-color: #673DE6;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px 0 rgba(103, 61, 230, 0.35);
+}
+.hostinger-btn-primary:hover {
+  background-color: #5025D1;
+  box-shadow: 0 6px 20px 0 rgba(103, 61, 230, 0.45);
+  transform: translateY(-1px);
+}

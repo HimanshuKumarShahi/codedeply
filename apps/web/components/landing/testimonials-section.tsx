@@ -88,12 +88,17 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
     <div className="flex-shrink-0 w-80 sm:w-96 rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-slate-900/60 backdrop-blur-xl shadow-sm hover:shadow-lg transition-all mx-3 flex flex-col justify-between">
       <div>
-        {/* Top bar: Stars + Stack Badge */}
+        {/* Top bar: Trustpilot Green Stars + Stack Badge */}
         <div className="flex items-center justify-between gap-2 mb-4">
-          <div className="flex gap-1 text-amber-400">
-            {Array.from({ length: testimonial.stars }).map((_, i) => (
-              <Star key={i} className="w-3.5 h-3.5 fill-current" />
-            ))}
+          <div className="flex items-center gap-1">
+            <div className="flex gap-0.5">
+              {Array.from({ length: testimonial.stars }).map((_, i) => (
+                <div key={i} className="w-4 h-4 rounded-[2px] bg-[#00B090] text-white flex items-center justify-center text-[10px] font-bold">
+                  ★
+                </div>
+              ))}
+            </div>
+            <span className="text-[10px] font-bold text-[#00B090] ml-1">Verified</span>
           </div>
 
           <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400">
